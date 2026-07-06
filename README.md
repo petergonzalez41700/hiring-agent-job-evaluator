@@ -37,7 +37,18 @@
 ## Overview
 
 Hiring Agent parses a resume PDF to Markdown, extracts sectioned JSON using a local or hosted LLM, augments the data with GitHub profile and repository signals, then produces an objective evaluation with category scores, evidence, bonus points, and deductions. You can run fully local with Ollama or use Google Gemini.
+With additional evaluation of your resume to job description you want.
+When running command
 
+This project is a fork of the open-source **Hiring Agent** originally released by **HackerRank** under the **MIT License**.
+
+The original project parses a resume PDF to Markdown, extracts structured JSON using a local or hosted LLM, augments candidate data with GitHub profile and repository signals, and produces an AI-assisted evaluation with category scores, evidence, bonus points, and deductions.
+
+This fork extends the original functionality by introducing **Resume-to-Job Description Matching**, allowing users to compare a resume against a specific job description. The feature generates an AI-powered fit score, identifies matching and missing qualifications, highlights skill and experience gaps, and provides personalized recommendations to help tailor a resume for a target role.
+
+> **Note:** The AI-generated fit score should be treated as a directional estimate rather than a definitive assessment of a candidate's qualifications. The primary value of this feature lies in the actionable feedback, skill-gap analysis, and resume improvement suggestions, which help users better align their resumes with job requirements.
+
+The project can be run fully locally using Ollama or with hosted models such as Google Gemini.
 ---
 
 ## Architecture
@@ -202,11 +213,11 @@ You can leave it on during iteration. See the next section for details.
 ## CLI usage
 
 ### End to end scoring
-
-Provide a path to a resume PDF.
+Create a .txt file to copy paste the job description you want to apply for
+Provide a path to a resume PDF and .txt file.
 
 ```bash
-$ python score.py /path/to/resume.pdf
+$ python score.py /path/to/resume.pdf /path/to/job.txt
 ```
 
 What happens:

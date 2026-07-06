@@ -89,3 +89,30 @@ class ResumeEvaluator:
         except Exception as e:
             logger.error(f"Error evaluating resume: {str(e)}")
             raise
+
+
+    def evaluate_resume_against_job(self, resume_text: str, job_description: str) -> dict:
+        full_prompt = self.template_manager.render_template(
+            "job_match_evaluation_criteria",
+            resume_text=resume_text,
+            job_description=job_description,
+        )
+
+        system_message = "You are a precise resume-to-job matching evaluator. Return only valid JSON."
+
+        chat_params = {
+            "model": self.model_name,
+            "messages": [
+                {"role": "system", "content": system_message},
+                {"role": "user", "content": full_prompt},
+            ],
+            "options": {
+                "stream": False,
+                "temperature": self.model_params.get("temperature", 0.2),
+                "top_p": self.model_params.get("top_p", 0.9),
+            },
+        }
+
+        response = self.provider.chat(**chat_params)
+        response_text = extract_json_from_response(response["message"]["content"])
+        return json.loads(response_text)

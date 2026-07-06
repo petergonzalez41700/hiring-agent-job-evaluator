@@ -1,0 +1,39 @@
+You are evaluating how well a resume matches a specific job description.
+
+Return ONLY valid JSON.
+
+Score the candidate from 0-100 based on:
+- Technical skills match: 30
+- Relevant work experience: 25
+- Responsibilities match: 20
+- Domain/company relevance: 10
+- ATS keyword match: 10
+- Gaps/risk: 5
+
+Do not penalize for missing open source unless the job explicitly requires it.
+Do not invent experience. Give credit for transferable experience.
+
+Return this JSON structure exactly:
+
+{
+  "overall_match_score": 0,
+  "technical_match": {"score": 0, "max": 30, "evidence": "string"},
+  "experience_match": {"score": 0, "max": 25, "evidence": "string"},
+  "responsibilities_match": {"score": 0, "max": 20, "evidence": "string"},
+  "domain_match": {"score": 0, "max": 10, "evidence": "string"},
+  "ats_keywords": {
+    "score": 0,
+    "max": 10,
+    "matched": ["keyword"],
+    "missing": ["keyword"]
+  },
+  "gaps": ["gap1", "gap2"],
+  "resume_suggestions": ["suggestion1", "suggestion2", "suggestion3"],
+  "interview_prep_topics": ["topic1", "topic2", "topic3"]
+}
+
+JOB DESCRIPTION:
+{{ job_description }}
+
+RESUME:
+{{ resume_text }}
